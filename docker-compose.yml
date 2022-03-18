@@ -67,7 +67,7 @@ services:
   connect:
     # image: cnfldemos/cp-server-connect-datagen:0.5.0-6.2.1
     build: ./connector/local/cp-server-connect-datagen
-    image: cp-server-connect-datagen:demo
+    # image: cp-server-connect-datagen:demo
     hostname: connect
     container_name: connect
     depends_on:

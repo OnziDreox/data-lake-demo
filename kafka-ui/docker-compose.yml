@@ -14,4 +14,4 @@ services:
       KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL: "SASL_SSL"
       KAFKA_CLUSTERS_0_PROPERTIES_SASL_MECHANISM: "AWS_MSK_IAM"
       KAFKA_CLUSTERS_0_PROPERTIES_SASL_CLIENT_CALLBACK_HANDLER_CLASS: "software.amazon.msk.auth.iam.IAMClientCallbackHandler"
-      KAFKA_CLUSTERS_0_PROPERTIES_SASL_JAAS_CONFIG: "software.amazon.msk.auth.iam.IAMLoginModule required;" # add awsProfileName=<profile-name> if not default
+      KAFKA_CLUSTERS_0_PROPERTIES_SASL_JAAS_CONFIG: "software.amazon.msk.auth.iam.IAMLoginModule required; awsProfileName='contoso-app';" # add awsProfileName=<profile-name> if not default

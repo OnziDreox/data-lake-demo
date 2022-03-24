@@ -11,7 +11,7 @@ def main(
 ):
     to_create = typer.confirm("To create database?")
     if to_create:
-        params = {"host": host, "port": port, "dbname": dbname, "user": user, "password": password}
+        params = {"host": host, "port": port, "dbname": dbname, "user": user, "password": password, "keepalives":1, "keepalives_idle":130, "keepalives_interval":10, "keepalives_count":15}
         set_connection(params)
         create_northwind_db()
 

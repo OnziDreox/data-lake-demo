@@ -5,7 +5,7 @@ Parameters:
   ParentVPCStack:
     Description: "Stack name of parent VPC stack based on vpc/vpc-*azs.yaml template."
     Type: String
-  ParentVPNBastionStack:
+  ParentSSHBastionStack:
     Description: "Optional but recommended stack name of parent VPN bastion host/instance stack based on vpc/vpc-vpn-bastion.yaml template."
     Type: String
     Default: ""
@@ -58,7 +58,7 @@ Parameters:
     Description: "S3 landing bucket name"
     Type: String
 Conditions:
-  HasVPNBastionSecurityGroup: !Not [!Equals [!Ref ParentVPNBastionStack, ""]]
+  HasSSHBastionSecurityGroup: !Not [!Equals [!Ref ParentSSHBastionStack, ""]]
 Resources:
   ClusterSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
@@ -73,16 +73,16 @@ Resources:
       FromPort: "0"
       ToPort: "0"
       SourceSecurityGroupId: !Ref ClusterSecurityGroup
-  ClusterSecurityGroupInVPNBastion:
+  ClusterSecurityGroupInSSHBastion:
     Type: "AWS::EC2::SecurityGroupIngress"
-    Condition: HasVPNBastionSecurityGroup
+    Condition: HasSSHBastionSecurityGroup
     Properties:
       GroupId: !Ref ClusterSecurityGroup
       IpProtocol: tcp
-      FromPort: "9098"
-      ToPort: "9098"
+      FromPort: '22'
+      ToPort: '22'
       SourceSecurityGroupId:
-        { "Fn::ImportValue": !Sub "${ParentVPNBastionStack}-SecurityGroup" }
+        { "Fn::ImportValue": !Sub "${ParentSSHBastionStack}-SecurityGroup" }
   ClusterSecurityGroupOutAll:
     Type: "AWS::EC2::SecurityGroupEgress"
     Properties:

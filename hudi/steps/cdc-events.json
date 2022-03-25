@@ -1,7 +1,7 @@
 [
   {
     "Type": "Spark",
-    "Name": "cdc-events-simple",
+    "Name": "cdc-events",
     "ActionOnFailure": "CONTINUE",
     "Args": [
       "--jars",
@@ -28,13 +28,13 @@
       "--source-ordering-field",
       "__source_ts_ms",
       "--props",
-      "s3://bri-data-lake-demo/hudi/config/cdc_events_deltastreamer_s3-simple.properties",
+      "s3://bri-data-lake-demo/hudi/config/cdc_events_deltastreamer_s3.properties",
       "--source-class",
       "org.apache.hudi.utilities.sources.JsonDFSSource",
       "--target-base-path",
-      "s3://bri-data-lake-demo/hudi/cdc-events-simple/",
+      "s3://bri-data-lake-demo/hudi/cdc-events/",
       "--target-table",
-      "datalake.cdc_events_simple",
+      "datalake.cdc_events",
       "--schemaprovider-class",
       "org.apache.hudi.utilities.schema.FilebasedSchemaProvider",
       "--enable-hive-sync",

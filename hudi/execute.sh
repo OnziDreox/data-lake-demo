@@ -8,9 +8,9 @@ spark-submit --jars /usr/lib/spark/external/lib/spark-avro.jar,/usr/lib/hudi/hud
     --class org.apache.hudi.utilities.deltastreamer.HoodieDeltaStreamer /usr/lib/hudi/hudi-utilities-bundle.jar \
     --table-type COPY_ON_WRITE \
     --source-ordering-field __source_ts_ms \
-    --props "s3://data-lake-demo-cevo/hudi/config/cdc_events_deltastreamer_s3.properties" \
+    --props "s3://bri-data-lake-demo/hudi/config/cdc_events_deltastreamer_s3.properties" \
     --source-class org.apache.hudi.utilities.sources.JsonDFSSource \
-    --target-base-path "s3://data-lake-demo-cevo/hudi/cdc-events/" \
+    --target-base-path "s3://bri-data-lake-demo/hudi/cdc-events/" \
     --target-table datalake.cdc_events \
     --schemaprovider-class org.apache.hudi.utilities.schema.FilebasedSchemaProvider \
     --enable-sync \
@@ -29,9 +29,9 @@ spark-submit --jars /usr/lib/spark/external/lib/spark-avro.jar,/usr/lib/hudi/hud
     --class org.apache.hudi.utilities.deltastreamer.HoodieDeltaStreamer /usr/lib/hudi/hudi-utilities-bundle.jar \
     --table-type COPY_ON_WRITE \
     --source-ordering-field __source_ts_ms \
-    --props "s3://data-lake-demo-cevo/hudi/config/cdc_events_deltastreamer_s3-simple.properties" \
+    --props "s3://bri-data-lake-demo/hudi/config/cdc_events_deltastreamer_s3-simple.properties" \
     --source-class org.apache.hudi.utilities.sources.JsonDFSSource \
-    --target-base-path "s3://data-lake-demo-cevo/hudi/cdc-events-simple/" \
+    --target-base-path "s3://bri-data-lake-demo/hudi/cdc-events-simple/" \
     --target-table datalake.cdc_events_simple \
     --schemaprovider-class org.apache.hudi.utilities.schema.FilebasedSchemaProvider \
     --enable-hive-sync \
@@ -40,7 +40,7 @@ spark-submit --jars /usr/lib/spark/external/lib/spark-avro.jar,/usr/lib/hudi/hud
     --op UPSERT
 
 aws emr add-steps \
-  --cluster-id j-31A980N14RJY9 \
+  --cluster-id j-H3L12IB2BR0K \
   --steps file://hudi/steps/cdc-events-simple.json \
   --region ap-southeast-2
 

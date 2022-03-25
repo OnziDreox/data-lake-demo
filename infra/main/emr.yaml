@@ -8,8 +8,8 @@ Parameters:
   LogS3BucketName:
     Description: "S3 log bucket name"
     Type: String
-  ParentVPNBastionStack:
-    Description: "Optional but recommended stack name of parent VPN bastion host/instance stack based on vpc/vpc-vpn-bastion.yaml template."
+  ParentSSHBastionStack:
+    Description: "Optional but recommended stack name of parent SSH bastion host/instance stack based on vpc/vpc-vpn-bastion.yaml template."
     Type: String
     Default: ""
   KeyName:
@@ -45,7 +45,7 @@ Parameters:
     Type: String
     Default: datalake
 Conditions:
-  HasVPNBastionSecurityGroup: !Not [!Equals [!Ref ParentVPNBastionStack, ""]]
+  HasSSHBastionSecurityGroup: !Not [!Equals [!Ref ParentSSHBastionStack, ""]]
   HasKeyName: !Not [!Equals [!Ref KeyName, ""]]
 Resources:
   # iam resources
@@ -289,23 +289,23 @@ Resources:
   # additional ingress
   AdditionalMasterSecurityGroupIngressBastion:
     Type: "AWS::EC2::SecurityGroupIngress"
-    Condition: HasVPNBastionSecurityGroup
+    Condition: HasSSHBastionSecurityGroup
     Properties:
       IpProtocol: tcp
-      FromPort: "0"
-      ToPort: "65535"
+      FromPort: "22"
+      ToPort: "22"
       SourceSecurityGroupId:
-        { "Fn::ImportValue": !Sub "${ParentVPNBastionStack}-SecurityGroup" }
+        { "Fn::ImportValue": !Sub "${ParentSSHBastionStack}-SecurityGroup" }
       GroupId: !GetAtt AdditionalMasterSecurityGroup.GroupId
   AdditionalSlaveSecurityGroupIngressBastion:
     Type: "AWS::EC2::SecurityGroupIngress"
-    Condition: HasVPNBastionSecurityGroup
+    Condition: HasSSHBastionSecurityGroup
     Properties:
       IpProtocol: tcp
-      FromPort: "0"
-      ToPort: "65535"
+      FromPort: "22"
+      ToPort: "22"
       SourceSecurityGroupId:
-        { "Fn::ImportValue": !Sub "${ParentVPNBastionStack}-SecurityGroup" }
+        { "Fn::ImportValue": !Sub "${ParentSSHBastionStack}-SecurityGroup" }
       GroupId: !GetAtt AdditionalSlaveSecurityGroup.GroupId
   # emr cluster
   EMRCluster:

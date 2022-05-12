@@ -487,7 +487,7 @@ Resources:
             aws --region ${Region} ec2 replace-route --route-table-id ${RouteTablePrivate} --destination-cidr-block "0.0.0.0/0" --instance-id $INSTANCEID || aws --region ${Region} ec2 create-route --route-table-id ${RouteTablePrivate} --destination-cidr-block "0.0.0.0/0" --instance-id $INSTANCEID
             /opt/aws/bin/cfn-init -v --stack ${StackName} --resource LaunchTemplate --region ${Region}
             /opt/aws/bin/cfn-signal -e 0 --region ${Region} --stack ${StackName} --resource NATAutoScalingGroup
-          - RouteTablePrivate: {'Fn::ImportValue': !Sub '${ParentVPCStack}-RouteTablePrivate'}
+          - RouteTablePrivate: {'Fn::ImportValue': !Sub '${ParentVPCStack}-RouteTable${SubnetZone}Private'}
             Region: !Ref 'AWS::Region'
             StackName: !Ref 'AWS::StackName'
             EIPAllocationId: !GetAtt 'EIP.AllocationId'

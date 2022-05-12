@@ -1,5 +1,5 @@
 {
-  "connect.name": "msk.datalake.cdc_events.Value",
+  "connect.name": "msk.	lakehouse_source_db.cdc_events.Value",
   "fields": [
     {
       "name": "order_id",
@@ -169,6 +169,6 @@
     }
   ],
   "name": "Value",
-  "namespace": "msk.datalake.cdc_events",
+  "namespace": "msk.	lakehouse_source_db.cdc_events",
   "type": "record"
 }

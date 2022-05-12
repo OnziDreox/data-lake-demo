@@ -1,4 +1,4 @@
-spark-submit --jars /usr/lib/spark/external/lib/spark-avro.jar,/usr/lib/hudi/hudi-utilities-bundle.jar \
+./bin/spark-submit --jars /usr/lib/spark/external/lib/spark-avro.jar,/usr/lib/hudi/hudi-utilities-bundle.jar \
     --master yarn \
     --deploy-mode cluster \
     --driver-memory 2g \
@@ -40,8 +40,8 @@ spark-submit --jars /usr/lib/spark/external/lib/spark-avro.jar,/usr/lib/hudi/hud
     --op UPSERT
 
 aws emr add-steps \
-  --cluster-id j-H3L12IB2BR0K \
-  --steps file://hudi/steps/cdc-events-simple.json \
+  --cluster-id j-1BD7K76FEP45B \
+  --steps file://hudi/steps/cdc-events.json \
   --region ap-southeast-2
 
 # {
